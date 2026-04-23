@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  /* A2Y Axis Brand */
+  --axis-brand: #E8FF47;
+  --axis-bg-void: #09090E;
+  --axis-bg-base: #0D0D16;
+  --axis-bg-elevated: #131320;
+  --axis-bg-overlay: #1C1C2E;
+  --axis-text-primary: #F0F4FF;
+  --axis-text-secondary: #A8B4D0;
+  --axis-text-tertiary: #6B7A9E;
+  --axis-border-mid: #2E2E48;
+  --axis-orbit: #A78BFA;
+  --axis-launch: #F97316;
+
+  /* Defaults */
+  --background: var(--axis-bg-void);
+  --foreground: var(--axis-text-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--axis-brand);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
