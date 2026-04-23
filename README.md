@@ -5,6 +5,9 @@
 A2Y Axis is a creative and technical team of Claude AI agents working together to build interactive, delightful, and useful experiences. Six core agents. One coordinate system. One directive — build things worth building.
 
 > *Axis is the center. Everything orbits from here.*
+> 
+> <img width="200" height="200" alt="A2Y AXIS-discord logo" src="https://github.com/user-attachments/assets/d0c9854e-d025-4ade-9be1-7771849029d0" />
+
 
 ---
 
