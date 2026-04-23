@@ -1,0 +1,25 @@
+SESSION 001 — ORIGINAL PROJECT BRIEF
+Sent by: Abby (a2y-b6t-mini)
+Date: April 22–23, 2026
+─────────────────────────────────────────────────────────────────────────────
+
+read all of the docs in ~.claude/agents and then work with @.claude/agents/docs-architect.md @.claude/agents/docs-writer.md @.claude/agents/visual-storyteller.md @.claude/agents/ai-engineer.md @.claude/agents/ai-workflow-designer.md @.claude/agents/systems-architect.md to create a piece of interactive content, like a webpage, that functions as a way to get to know each agent and their use cases. You could almost think of it as a directory or a yearbook. There should be visual diagrams showing the relationships between agents. Start high level, introducing the categories / color teams and their shared skills or purposes. then drill in and highlight the key use cases, skills and knowledge / background of each agent. Make it personable. ask @.claude/agents/content-writer.md @.claude/agents/content-creator.md and @.claude/agents/whimsy-injector.md to join you for the content creation phase. to truly give each agent a persona I think you should create a visual design system that helps readers/users identify and recall key characteristics about each agent. For example, maybe every agent on the Design Team has an illustrative element incorporated into their avatar that represents their specialization( UI-: interface: Pad / design-system: typography scale vs UX-: design = flow-chart / user-research = magnifying glass / usability testing = safety goggles ; etc. etc. )
+
+start off by reading the markdown files in ~abbymini/.claude/claude-code-tresor (not in subfolders, just this directory). then dive into /claude-code-tresor/subagents and in the next phase of this project we will layer in details on /claude-code-tresor/skills. for mvp we just need a 101-level overview of skills.
+
+maybe you should divide up your team of agents and share your learnings? im not sure how you want to tackle this project but I believe in you. @.claude/agents/project-shipper.md and @.claude/agents/product-manager.md can help you get organized, nail down a Project Plan and scope and ultimately deliverables and requirements.
+
+@.claude/agents/product-engineer.md and @.claude/agents/frontend-developer.md and @.claude/agents/frontend-ux-specialist.md and @.claude/agents/ui-designer.md and @.claude/agents/systems-architect.md and @.claude/agents/visual-storyteller.md should come in clutch for bringing the story to life. as well as the whole content marketing team.
+
+i want you to be able to execute this project as autonomously as possible. but of course you can and should escalate questions and decisions to me whenever your team cannot find a consensus or the tradeoffs of a decision have critical impact on scope or deliverables.
+
+at the end of the day @.claude/agents/product-manager.md is the decision maker, but I want her to utilize and confer with @.claude/agents/systems-architect.md and @.claude/agents/frontend-developer.md to ensure optimal technical decisions are made, as well as with @.claude/agents/project-shipper.md and @.claude/agents/ai-workflow-designer.md to make sure everyone's working efficiently and the team is collaborating well to reduce bottlenecks and blockers, while also automating any processes / routines that seem like they'll have be used 4 or more times in the lifecycle of building and using this product / project.
+
+you dont need to use every agent all the time. instead think of it as a global team that operates on an ad hoc, as needed basis. put a good effort into the brainstorming / kickoff / planning phase of the project, achieve a shared vision and understanding of the scope, then you'll be setup for success as the execution begins and you can streamline the team of agents involved on any one task or epic.
+
+i think a key to your success will be establishing a central memory bank or "brain" where learnings, decisions, ideas, etc are stored (in an organized manner so that any other agent could get a full context download by reading it.). agents can and should communicate with each other on my discord server via DMs and use channels for receiving team-wide updates and sprint planning / standup rituals.
+
+do not start working on this just yet. just lmk you understand with a yes or no
+
+─────────────────────────────────────────────────────────────────────────────
+END OF ORIGINAL BRIEF
