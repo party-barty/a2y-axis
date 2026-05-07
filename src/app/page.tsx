@@ -1,18 +1,19 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { agents, categories, type Agent } from '@/data/agents';
+import { agents, type Agent } from '@/data/agents';
+import { teams } from '@/data/teams';
 import Link from 'next/link';
 
 export default function Home() {
   const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     let result = agents;
 
-    if (selectedCategory) {
-      result = result.filter(a => a.category === selectedCategory);
+    if (selectedTeam) {
+      result = result.filter(a => a.team === selectedTeam);
     }
 
     if (search) {
@@ -21,12 +22,19 @@ export default function Home() {
         a =>
           a.name.toLowerCase().includes(q) ||
           a.description.toLowerCase().includes(q) ||
-          a.category.toLowerCase().includes(q)
+          a.team.toLowerCase().includes(q) ||
+          a.subcategory.toLowerCase().includes(q)
       );
     }
 
     return result.sort((a, b) => a.name.localeCompare(b.name));
-  }, [search, selectedCategory]);
+  }, [search, selectedTeam]);
+
+  const agentCountByTeam = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const a of agents) m[a.team] = (m[a.team] ?? 0) + 1;
+    return m;
+  }, []);
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--axis-bg-void)' }}>
@@ -61,39 +69,90 @@ export default function Home() {
 
       {/* Main */}
       <main className="max-w-7xl mx-auto px-6 py-12">
+        {/* Teams overview — link to team archive pages */}
+        <div className="mb-12">
+          <h2
+            className="text-sm font-semibold mb-4 uppercase tracking-wide"
+            style={{ color: 'var(--axis-text-tertiary)' }}
+          >
+            Teams ({teams.length})
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            {teams.map(t => (
+              <Link key={t.slug} href={`/team/${t.slug}`}>
+                <div
+                  className="p-4 rounded-lg border transition-all hover:-translate-y-0.5 cursor-pointer group"
+                  style={{
+                    background: 'var(--axis-bg-elevated)',
+                    borderColor: t.color + '40',
+                    borderLeft: `3px solid ${t.color}`,
+                  }}
+                >
+                  {t.callsign && (
+                    <div
+                      className="text-[10px] font-mono uppercase tracking-widest mb-1"
+                      style={{ color: t.color, letterSpacing: '0.18em' }}
+                    >
+                      {t.callsign}
+                    </div>
+                  )}
+                  <div
+                    className="font-semibold text-sm group-hover:opacity-80 transition-opacity"
+                    style={{ color: 'var(--axis-text-primary)' }}
+                  >
+                    {t.label}
+                  </div>
+                  <div
+                    className="text-xs mt-1"
+                    style={{ color: 'var(--axis-text-tertiary)' }}
+                  >
+                    {agentCountByTeam[t.slug] ?? 0} agents
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-8 mb-12">
-          {/* Categories */}
+          {/* Filter chips */}
           <div>
             <h2
               className="text-sm font-semibold mb-4 uppercase tracking-wide"
               style={{ color: 'var(--axis-text-tertiary)' }}
             >
-              Categories ({categories.length})
+              Filter by team
             </h2>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setSelectedCategory(null)}
+                onClick={() => setSelectedTeam(null)}
                 className="px-3 py-1 text-sm rounded-full transition-colors"
                 style={{
-                  background: !selectedCategory ? 'var(--axis-brand)' : 'var(--axis-bg-elevated)',
-                  color: !selectedCategory ? '#000' : 'var(--axis-text-secondary)',
+                  background: !selectedTeam ? 'var(--axis-brand)' : 'var(--axis-bg-elevated)',
+                  color: !selectedTeam ? '#000' : 'var(--axis-text-secondary)',
                   border: '1px solid var(--axis-border-mid)',
                 }}
               >
                 All
               </button>
-              {categories.map(cat => (
+              {teams.map(t => (
                 <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
+                  key={t.slug}
+                  onClick={() => setSelectedTeam(t.slug)}
                   className="px-3 py-1 text-sm rounded-full transition-colors"
                   style={{
-                    background: selectedCategory === cat ? 'var(--axis-brand)' : 'var(--axis-bg-elevated)',
-                    color: selectedCategory === cat ? '#000' : 'var(--axis-text-secondary)',
-                    border: '1px solid var(--axis-border-mid)',
+                    background:
+                      selectedTeam === t.slug
+                        ? t.color
+                        : 'var(--axis-bg-elevated)',
+                    color:
+                      selectedTeam === t.slug ? '#000' : 'var(--axis-text-secondary)',
+                    border: `1px solid ${
+                      selectedTeam === t.slug ? t.color : 'var(--axis-border-mid)'
+                    }`,
                   }}
                 >
-                  {cat} ({agents.filter(a => a.category === cat).length})
+                  {t.label} ({agentCountByTeam[t.slug] ?? 0})
                 </button>
               ))}
             </div>
@@ -121,9 +180,9 @@ export default function Home() {
 
 function AgentCard({ agent }: { agent: Agent }) {
   return (
-    <Link href={`/agent/${agent.slug}`}>
+    <Link href={`/agent/${agent.team}/${agent.slug}`}>
       <div
-        className="p-6 rounded-lg border transition-all hover:border-opacity-100 cursor-pointer group"
+        className="p-6 rounded-lg border transition-all hover:border-opacity-100 hover:-translate-y-0.5 cursor-pointer group"
         style={{
           background: 'var(--axis-bg-elevated)',
           borderColor: agent.color + '80',
@@ -154,11 +213,11 @@ function AgentCard({ agent }: { agent: Agent }) {
           <span
             className="px-2 py-1 text-xs rounded"
             style={{
-              background: 'var(--axis-bg-overlay)',
-              color: 'var(--axis-text-tertiary)',
+              background: agent.color + '1F',
+              color: agent.color,
             }}
           >
-            {agent.category}
+            {agent.team}
           </span>
           {agent.subcategory && (
             <span
