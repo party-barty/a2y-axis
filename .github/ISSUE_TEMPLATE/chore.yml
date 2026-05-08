@@ -1,0 +1,60 @@
+name: Chore
+description: Maintenance, refactor, dependency bump, internal cleanup. Behavior unchanged.
+title: "[chore] "
+labels:
+  - "type:chore"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Chore = **internal change with no behavior delta**. If a user could feel the difference, it's a feature or bug instead.
+  - type: textarea
+    id: what-and-why
+    attributes:
+      label: What and why
+      description: What's changing and why now. Cite the upstream constraint (debt, dep deprecation, code-smell from a previous PR review, etc.).
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope of change
+      description: Files/modules touched. If you don't know yet, scope to the symptom and refine after first PR.
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk / blast radius
+      description: What could break. Most chores are low-risk; flag the ones that aren't.
+    validations:
+      required: false
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - "team:engineering (ARC)"
+        - "team:design (VEGA)"
+        - "team:ai-automation (NOVA)"
+        - "team:product (VECTOR)"
+        - "team:marketing (LUMEN)"
+        - "team:account-cs (ECHO)"
+        - "team:operations"
+        - "team:leadership"
+        - "team:research"
+        - "team:core"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Default P2 unless this unblocks something. Bump to P1 for blockers, P0 for incident-adjacent cleanup.
+      options:
+        - "priority:p2"
+        - "priority:p1"
+        - "priority:p0"
+    validations:
+      required: true

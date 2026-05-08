@@ -1,0 +1,66 @@
+name: Docs
+description: Documentation change — public-facing prose, internal notes, agent briefs, README, CLAUDE.md, etc.
+title: "[docs] "
+labels:
+  - "type:docs"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Documentation accountability rule:** authored prose is load-bearing in this repo. Open a docs issue rather than slipping doc edits into a feature commit. The board needs to reflect that prose work happened.
+  - type: textarea
+    id: target
+    attributes:
+      label: Doc(s) to change
+      description: File paths preferred. If this is a new doc, give the proposed path.
+      placeholder: "docs/sessions/session-002-design-direction-debrief.md, README.md"
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What's wrong / what's missing
+      description: Be specific. "Section X is stale because of decision Y on date Z." Don't just say "needs updating."
+    validations:
+      required: true
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Audience
+      description: Drives tone and where the doc lives.
+      options:
+        - "Public-facing (visitors of the live site)"
+        - "Contributors (humans editing the repo)"
+        - "Agents (Claude / sub-agents reading project context)"
+        - "Abby personal notes (memory / session debriefs)"
+    validations:
+      required: true
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - "team:design (VEGA)"
+        - "team:marketing (LUMEN)"
+        - "team:product (VECTOR)"
+        - "team:engineering (ARC)"
+        - "team:ai-automation (NOVA)"
+        - "team:account-cs (ECHO)"
+        - "team:leadership"
+        - "team:operations"
+        - "team:research"
+        - "team:core"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Default P2. Bump to P1 if stale doc is actively misleading users or agents. P0 reserved for prose-incidents (bad copy live in production).
+      options:
+        - "priority:p2"
+        - "priority:p1"
+        - "priority:p0"
+    validations:
+      required: true

@@ -1,0 +1,89 @@
+name: Feature
+description: Net-new functionality, surface, or capability.
+title: "[feature] "
+labels:
+  - "type:feature"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        New functionality. If you're fixing something that's broken, use the **Bug** template instead. If you're refactoring without changing behavior, use **Chore**.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One paragraph. What does this add and what does it look like from the outside?
+    validations:
+      required: true
+  - type: textarea
+    id: why-now
+    attributes:
+      label: Why now / who asked
+      description: Motivating constraint, audience, or upstream decision. If this is unblocking another issue, link it.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What's in. Bullet list is fine. If this needs sub-issues, name them here and open them after this one is filed.
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: What we're explicitly NOT doing in this issue. Prevents scope creep during review.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How we know this is done. Use checkbox format so the issue can self-track.
+      placeholder: |
+        - [ ] User can do X
+        - [ ] Y renders correctly in light + dark
+        - [ ] Lint + typecheck pass
+    validations:
+      required: true
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      description: Which team owns this. Pick the closest match — leadership/operations/research/core if no callsign team fits.
+      options:
+        - "team:design (VEGA)"
+        - "team:engineering (ARC)"
+        - "team:marketing (LUMEN)"
+        - "team:ai-automation (NOVA)"
+        - "team:product (VECTOR)"
+        - "team:account-cs (ECHO)"
+        - "team:leadership"
+        - "team:operations"
+        - "team:research"
+        - "team:core"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: P0 = drop everything (production broken). P1 = high (regression / blocker). P2 = normal queue.
+      options:
+        - "priority:p2"
+        - "priority:p1"
+        - "priority:p0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: All boxes must be checked before the issue moves to Done on the board.
+      options:
+        - label: Code merged to main via PR that closes this issue
+        - label: ESLint passes (pre-commit + CI both green)
+        - label: User-facing prose surfaced in its own docs issue/PR (per documentation accountability rule), not buried in this commit
+        - label: Issue moved to Done on the Axis Studio board
