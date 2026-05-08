@@ -1,9 +1,12 @@
 # A2Y Axis
 
 ## What This Is
-Interactive agent directory / yearbook for the A2Y Axis AI agent studio. Dark-mode-first, mission control aesthetic, cinematic and techy.
+Interactive agent directory / yearbook for the A2Y Axis AI agent studio. Dual-vibe (light + dark, both first-class). Visual direction in flux — see `docs/sessions/session-002-design-direction-debrief.md` for current locked decisions.
 
-## The Six Core Agents
+## The Six Callsign-Bearing Teams
+
+*Starting state: 10 teams, 130 agents — built to scale to hundreds. The six below carry callsigns; Leadership, Operations, Research, and Core do not.*
+
 | Callsign | Team | Color | Archetype |
 |----------|------|-------|-----------|
 | VEGA | Design | #EC4899 | The Auteur |
@@ -16,8 +19,8 @@ Interactive agent directory / yearbook for the A2Y Axis AI agent studio. Dark-mo
 ## Brand
 - Hero color: `#E8FF47` (chartreuse) — coordinate lock, HUD crosshair
 - Design language: orbital mechanics, coordinate systems, mission control HUD
-- Dark-mode-first (light mode secondary)
-- Avatar format: flat-top hexagon, SVG, 400x400px master
+- Dual-vibe: light + dark are both first-class. Default mode TBD.
+- Visual primitive: hex sigils (abstract, gradient-flooded — *not* humanoid characters). Reference: Datalands' Microsoft Praise.
 
 ## Color Tokens
 ```css

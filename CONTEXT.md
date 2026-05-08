@@ -2,24 +2,30 @@
 
 > Read this file to get full context on the project before starting any work.
 
-**Repo:** https://github.com/party-barty/a2y-axis  
-**Local:** `~/Sites/a2y-axis/`  
-**Founded:** April 22, 2026  
+**Repo:** <https://github.com/party-barty/a2y-axis>
+**Local:** `~/Sites/a2y-axis/`
+**Founded:** April 22, 2026
 
 ---
 
 ## What We're Building
 
-An interactive agent directory / yearbook web experience for the A2Y Axis AI agent studio. Six AI agents, each with a custom illustrated avatar and distinct persona. Users can explore personalities, skills, relationships, and use cases. Think: yearbook meets mission control roster meets interactive org chart.
+An interactive agent directory / yearbook **app** for the A2Y Axis AI agent studio. **Starting at 130 agents across 10 teams** — the architecture is built to index and organize hundreds of agents over time. Six teams carry callsigns and set the studio's tone; the other four are operational.
 
-**Stack:** Next.js + TypeScript + Tailwind CSS + Framer Motion
+**Framing:** experience-first, not content-first. Visual storytelling primitive is an infinite tapestry mindmap — agents as nodes, teams as clusters, collaboration patterns as edges.
+
+**Stack:** Next.js 16 (App Router, SSG) + TypeScript + Tailwind CSS v4 + Framer Motion + `marked` (markdown rendering for team briefs)
+
+**Live source of truth for in-flux design decisions:** [`docs/sessions/session-002-design-direction-debrief.md`](docs/sessions/session-002-design-direction-debrief.md). Read that before reopening any visual/aesthetic question.
 
 ---
 
-## The Six Agents
+## The Ten Teams
+
+Six callsign-bearing teams set the studio tone:
 
 | Callsign | Nickname | Team | Hex | Archetype |
-|----------|----------|------|-----|-----------|
+| -------- | -------- | ---- | --- | --------- |
 | VEGA | — | Design | #EC4899 | The Auteur |
 | ARC | — | Engineering | #3B82F6 | The Structuralist |
 | LUMEN | — | Marketing | #10B981 | The Amplifier |
@@ -27,15 +33,19 @@ An interactive agent directory / yearbook web experience for the A2Y Axis AI age
 | VECTOR | Vec | Product | #8B5CF6 | The Navigator |
 | ECHO | — | Account/CS | #06B6D4 | The Translator |
 
+Four operational teams round out the studio without callsigns: **Leadership**, **Operations**, **Research**, **Core**.
+
 ---
 
 ## Brand
 
-**Hero color:** `#E8FF47` (chartreuse) — HUD crosshair, radar return, coordinate lock  
-**Design language:** Orbital mechanics, coordinate systems, mission control HUD, sci-fi command center  
-**Dark-mode-first.** Cinematic and technical.
+**Hero color:** `#E8FF47` (chartreuse) — HUD crosshair, radar return, coordinate lock
+**Mode:** Dual-vibe — light and dark are both first-class. Default TBD.
+**Visual primitive:** Hex sigils — abstract, gradient-flooded, 3D-iridescent. *Not* humanoid characters. Reference: Datalands' Microsoft Praise.
+**Color application:** Religious — every team color must do typographic, background, interaction-state, AND reward work, not just decorative borders.
 
 ### CSS Tokens
+
 ```css
 --axis-brand:          #E8FF47;
 --axis-bg-void:        #09090E;
@@ -57,66 +67,114 @@ An interactive agent directory / yearbook web experience for the A2Y Axis AI age
 --axis-focus-ring:     #E8FF47;
 ```
 
+*These tokens are dark-mode values. Light-mode token set is pending.*
+
 ### Team Color Usage Rules
+
 - Background tints: 8–10% opacity
 - Active/selected: full saturation + team-color glow shadow
 - Body text: never use team colors
 
 ---
 
-## Avatar Illustration Spec
+## Routing
 
-- **Style:** Retro-futurist mission patch art meets NFT-grade character design
-- **Frame:** Flat-top hexagon, 400×400px master SVG
-- **Signature:** Chartreuse pip (#E8FF47) lower-right corner of every hex — "powered by Axis"
-- **SVG groups required:** `bg`, `character-body`, `character-eyes`, `accent-pip`
-- **Animations:** 3px idle bob (4s, offset per agent), eye-track ±2px, respect `prefers-reduced-motion`
-- **Build order:** VECTOR first (sets quality bar)
+Three layers, all statically generated (144 routes prerendered):
 
----
+- `/` — searchable roster of all 130 agents, filterable by team
+- `/team/[slug]` — per-team page with mission, collaboration patterns, best practices, full team roster
+- `/agent/[team]/[slug]` — full agent profile with capabilities, tools, team context
 
-## Where We Left Off
+Legacy `/agent/[slug]` URLs redirect to the canonical nested form.
 
-Next.js scaffolding was attempted but failed — `create-next-app` conflicts with existing `README.md` and `CLAUDE.md`.
-
-**Resume with:**
-```bash
-cd ~/Sites/a2y-axis
-mv README.md /tmp/a2y-readme.md && mv CLAUDE.md /tmp/a2y-claude.md
-npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --no-git
-mv /tmp/a2y-readme.md README.md && mv /tmp/a2y-claude.md CLAUDE.md
-npm install framer-motion
-```
-
-Then:
-1. Add all `--axis-*` tokens to `src/app/globals.css`
-2. Extend Tailwind config with brand colors
-3. Create agent data files (`src/data/agents.ts`)
-4. Build hex avatar card component
-5. Build directory grid
+Team pages are built from authored briefs in `src/content/teams/*.md`.
 
 ---
 
-## Open Decisions
+## Page Priority
 
-- A2Y Axis **Manifesto** not yet written (key section of the directory)
-- **Visual personality briefs** per agent not yet written (needed before illustration)
-- **GitHub Project** board not yet created (needs `gh auth refresh -s project,read:project`)
-- Light mode spec: secondary priority, not yet defined
+P0 → P1 → P2. Don't move past P0 until visual storytelling language is finalized.
+
+1. **Homepage (P0)** — orbital/mindmap hero, 130-agent searchable roster
+2. **Team page (P1)** — team archive
+3. **Agent detail (P2)** — individual agent profile
+
+---
+
+## Motion Budget
+
+- **MVP:** restrained — hover states, subtle transitions
+- **Upgrade target:** mindmap-in-motion — reactive animating connections between agents
+- Always respect `prefers-reduced-motion`
+- Library: Framer Motion
+
+---
+
+## Cluster + Tier System
+
+3 tiers, fictional Series B startup likeness (no real company named). Frame: studio-org taxonomy — **decide what to build / build it / get it to people**.
+
+| Tier | Teams | Function |
+| ---- | ----- | -------- |
+| **The Pitch** | Leadership, Product, Research | Decide what to build (and tell investors about it) |
+| **The Stack** | Engineering, AI/Automation, Design | Build it |
+| **The Funnel** | Marketing, Account/CS, Operations, Core | Get it to people + sustain it |
+
+Hidden hierarchy joke: The Pitch is always two versions ahead of The Stack (vaporware); The Stack delivers what it can but gets less press; The Funnel is where customer reality reveals the gap.
+
+**Recurring case-study product:** AI pet translator app — "world's most advanced pet translator, if it actually worked." Wearable + app that "translates" barks/meows into English. Failure modes are comedy not harm (the dog "says" the same three sentences all week; the cat is allegedly a Marxist). Used as the universal recurring example throughout content for every agent's use cases.
+
+Locked 2026-05-07. Fictional company name, product name, and tone-bible voice still pending under this lock.
+
+---
+
+## Open Decisions (gating further work)
+
+Tracked in detail in [`docs/sessions/session-002-design-direction-debrief.md`](docs/sessions/session-002-design-direction-debrief.md) and the live priority queue in user memory. Summary:
+
+1. **Fictional company name + product name + tone bible** — required to ship the tier system + recurring case study as user-facing language
+2. **Default mode** — light or dark
+3. **Central metaphor (storyline spine)** — debrief pending
+4. **Callsign task-force model** — proposed (callsigns as seats, not people); not formally locked
+5. **Light-mode color token set** — not yet specced
+6. **Team brief review** — 10 authored files at `src/content/teams/*.md` not yet reviewed
+7. **Playground feature** — feasibility eval pending
+8. **Typography (display + body/mono)** — not yet chosen
+9. **Manifesto copy** — not yet written
 
 ---
 
 ## Design Inspiration
 
-**status.app** — reviewed full site. Key references:
-- Wide color palette used for information organization
-- Underground comic / street art character illustration style (ours differs — more retro-futurist/mission patch)
-- Manifesto page: principled, direct, no corporate jargon
-- Public Epics/burndown from GitHub Projects (build-in-public ethos — scope for v2)
+Locked references this project draws from:
+
+- **16personalities.com** — color-as-religion. 4 groups × 4 types × 4 colors. Casual gamification. Skip the humanoid characters; keep the color/group/quiz mechanics.
+- **Datalands.co/work/microsoft-praise** — 3D iridescent gradient sigil aesthetic. The visual target for hex sigils.
+- **Status.app** — light-mode reference: clean white/pale gradient with vibrant accent components. Also build-in-public ethos (tone reference).
+- **AI Prompt Box** (Easemize, 21st.dev) — the Turrell mechanism made concrete. Reactive ambient gradient based on context. Inspiration for the playground feature and dark-mode immersive treatment.
 
 ---
 
-## Full Session Log
+## Documentation Accountability
 
-Full founding session notes in:  
-`~/.claude/projects/-Users-abbymini-Sites-are-you-serious-claude/memory/session_001_a2y_axis_founding.md`
+When opinionated prose is authored (not generated, not refactored), it must be flagged explicitly with file paths and a "please review" call in the same message. No ambient documentation.
+
+---
+
+## Project Structure
+
+```text
+src/
+  app/               Next.js routes
+  data/
+    agents.ts        Auto-generated registry of 130 agents
+    teams.ts         Team metadata — callsign, color, archetype, tagline
+  content/
+    teams/*.md       Authored team briefs (10 files)
+  lib/
+    markdown.ts      Markdown rendering helper (marked.js wrapper)
+    teams.ts         Team page data loader
+docs/
+  sessions/          Session debriefs (live source of truth for in-flux decisions)
+  brand-guidelines.md  Brand brief (NOTE: stale — predates session 002 direction shift)
+```

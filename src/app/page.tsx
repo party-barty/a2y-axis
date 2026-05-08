@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { agents, type Agent } from '@/data/agents';
-import { teams } from '@/data/teams';
+import { teams, tiers, teamsByTier } from '@/data/teams';
 import Link from 'next/link';
 
 export default function Home() {
@@ -45,8 +45,11 @@ export default function Home() {
             <h1 className="text-4xl font-bold mb-2" style={{ color: 'var(--axis-brand)' }}>
               A2Y Axis
             </h1>
-            <p style={{ color: 'var(--axis-text-secondary)' }}>
-              Interactive agent directory — discover all {agents.length} agents
+            <p className="text-lg mb-1" style={{ color: 'var(--axis-text-primary)' }}>
+              {agents.length} agents shipping the world's most advanced AI pet translator.
+            </p>
+            <p className="text-sm" style={{ color: 'var(--axis-text-tertiary)' }}>
+              If it actually worked.
             </p>
           </div>
 
@@ -69,49 +72,76 @@ export default function Home() {
 
       {/* Main */}
       <main className="max-w-7xl mx-auto px-6 py-12">
-        {/* Teams overview — link to team archive pages */}
-        <div className="mb-12">
-          <h2
-            className="text-sm font-semibold mb-4 uppercase tracking-wide"
-            style={{ color: 'var(--axis-text-tertiary)' }}
-          >
-            Teams ({teams.length})
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            {teams.map(t => (
-              <Link key={t.slug} href={`/team/${t.slug}`}>
-                <div
-                  className="p-4 rounded-lg border transition-all hover:-translate-y-0.5 cursor-pointer group"
-                  style={{
-                    background: 'var(--axis-bg-elevated)',
-                    borderColor: t.color + '40',
-                    borderLeft: `3px solid ${t.color}`,
-                  }}
-                >
-                  {t.callsign && (
-                    <div
-                      className="text-[10px] font-mono uppercase tracking-widest mb-1"
-                      style={{ color: t.color, letterSpacing: '0.18em' }}
+        {/* Teams overview, grouped by tier */}
+        <div className="mb-12 space-y-10">
+          {tiers.map(tier => {
+            const tierTeams = teamsByTier[tier.slug];
+            const tierAgentCount = tierTeams.reduce(
+              (sum, t) => sum + (agentCountByTeam[t.slug] ?? 0),
+              0
+            );
+            return (
+              <section key={tier.slug}>
+                <div className="mb-4 flex items-baseline justify-between gap-4">
+                  <div>
+                    <h2
+                      className="text-2xl font-bold tracking-tight"
+                      style={{ color: 'var(--axis-text-primary)' }}
                     >
-                      {t.callsign}
-                    </div>
-                  )}
-                  <div
-                    className="font-semibold text-sm group-hover:opacity-80 transition-opacity"
-                    style={{ color: 'var(--axis-text-primary)' }}
-                  >
-                    {t.label}
+                      {tier.label}
+                    </h2>
+                    <p
+                      className="text-sm mt-1"
+                      style={{ color: 'var(--axis-text-secondary)' }}
+                    >
+                      {tier.blurb}
+                    </p>
                   </div>
                   <div
-                    className="text-xs mt-1"
-                    style={{ color: 'var(--axis-text-tertiary)' }}
+                    className="text-xs font-mono uppercase tracking-widest whitespace-nowrap"
+                    style={{ color: 'var(--axis-text-tertiary)', letterSpacing: '0.18em' }}
                   >
-                    {agentCountByTeam[t.slug] ?? 0} agents
+                    {tierTeams.length} {tierTeams.length === 1 ? 'team' : 'teams'} · {tierAgentCount} agents
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {tierTeams.map(t => (
+                    <Link key={t.slug} href={`/team/${t.slug}`}>
+                      <div
+                        className="p-4 rounded-lg border transition-all hover:-translate-y-0.5 cursor-pointer group h-full"
+                        style={{
+                          background: 'var(--axis-bg-elevated)',
+                          borderColor: t.color + '40',
+                          borderLeft: `3px solid ${t.color}`,
+                        }}
+                      >
+                        {t.callsign && (
+                          <div
+                            className="text-[10px] font-mono uppercase tracking-widest mb-1"
+                            style={{ color: t.color, letterSpacing: '0.18em' }}
+                          >
+                            {t.callsign}
+                          </div>
+                        )}
+                        <div
+                          className="font-semibold text-sm group-hover:opacity-80 transition-opacity"
+                          style={{ color: 'var(--axis-text-primary)' }}
+                        >
+                          {t.label}
+                        </div>
+                        <div
+                          className="text-xs mt-1"
+                          style={{ color: 'var(--axis-text-tertiary)' }}
+                        >
+                          {agentCountByTeam[t.slug] ?? 0} agents
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 gap-8 mb-12">
