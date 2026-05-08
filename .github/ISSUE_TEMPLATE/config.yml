@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Workflow doc
+    url: https://github.com/party-barty/a2y-axis/blob/main/docs/workflow/issue-driven-development.md
+    about: Read this before opening your first issue. Every change in this repo starts as a typed issue.
