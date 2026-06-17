@@ -1,0 +1,65 @@
+name: Hotfix
+description: Production is broken. Use this template only when the situation warrants skipping the normal triage queue.
+title: "[hotfix] "
+labels:
+  - "type:hotfix"
+  - "priority:p0"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Hotfix is for incidents.** Production is broken or about to be. Open the issue, label it, then start the fix — don't wait on triage. Backfill the board within the same day.
+
+        If the user-visible bug isn't actively breaking production, use the **Bug** template instead.
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Production symptom
+      description: One paragraph. What is the user seeing right now?
+    validations:
+      required: true
+  - type: textarea
+    id: trigger
+    attributes:
+      label: Triggering event / when did it start
+      description: Most recent deploy, config change, dependency bump, or external event. If unknown, say so.
+    validations:
+      required: true
+  - type: textarea
+    id: blast-radius
+    attributes:
+      label: Blast radius
+      description: Who's affected, how many, and what other systems might be at risk.
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Rollback plan
+      description: Cheapest path back to a working state if the fix attempt fails. Even "revert SHA xyz" counts.
+    validations:
+      required: true
+  - type: textarea
+    id: root-cause
+    attributes:
+      label: Root cause if known
+      description: Optional. If the cause is still being investigated, leave blank and update the issue once known.
+    validations:
+      required: false
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - "team:engineering (ARC)"
+        - "team:ai-automation (NOVA)"
+        - "team:design (VEGA)"
+        - "team:product (VECTOR)"
+        - "team:account-cs (ECHO)"
+        - "team:marketing (LUMEN)"
+        - "team:operations"
+        - "team:leadership"
+        - "team:research"
+        - "team:core"
+    validations:
+      required: true

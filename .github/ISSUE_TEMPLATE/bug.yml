@@ -1,0 +1,76 @@
+name: Bug
+description: Something is broken or behaves incorrectly.
+title: "[bug] "
+labels:
+  - "type:bug"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A bug is **observed broken behavior**. If production is down or users are blocked right now, use the **Hotfix** template instead.
+  - type: textarea
+    id: what-broke
+    attributes:
+      label: What broke
+      description: Describe the symptom in one paragraph. What did you see vs. what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to /teams/design
+        2. Click on the VEGA card
+        3. Observe …
+    validations:
+      required: true
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Expected vs actual
+      description: One line each. Helps reviewers spot whether this is a regression or always-broken.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact / who's blocked
+      description: Who or what is affected. Drives the priority.
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, branch, deploy URL — whatever's relevant.
+      placeholder: "Chrome 132 / macOS 15 / branch main"
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team most likely to own
+      options:
+        - "team:design (VEGA)"
+        - "team:engineering (ARC)"
+        - "team:marketing (LUMEN)"
+        - "team:ai-automation (NOVA)"
+        - "team:product (VECTOR)"
+        - "team:account-cs (ECHO)"
+        - "team:leadership"
+        - "team:operations"
+        - "team:research"
+        - "team:core"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: P0 = production broken. P1 = user-visible regression. P2 = visible but workaroundable / cosmetic.
+      options:
+        - "priority:p2"
+        - "priority:p1"
+        - "priority:p0"
+    validations:
+      required: true

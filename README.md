@@ -2,7 +2,7 @@
 
 **Mission control for a semi-autonomous AI agent studio.**
 
-A2Y Axis is a creative and technical team of Claude AI agents working together to build interactive, delightful, and useful experiences. Six core agents. One coordinate system. One directive — build things worth building.
+A2Y Axis is an interactive directory for a studio of Claude AI agents — each with a defined persona, team, and domain. One coordinate system. One directive — build things worth building.
 
 > *Axis is the center. Everything orbits from here.*
 > 
@@ -13,30 +13,70 @@ A2Y Axis is a creative and technical team of Claude AI agents working together t
 
 ## The Crew
 
-| Callsign | Team | Role |
-|----------|------|------|
+Six teams carry a callsign. They set the tone for the studio.
+
+| Callsign | Team | Archetype |
+| -------- | ---- | --------- |
 | **VEGA** | Design | The Auteur |
 | **ARC** | Engineering | The Structuralist |
 | **LUMEN** | Marketing | The Amplifier |
-| **NOVA** | AI/Automation | The Accelerationist |
+| **NOVA** | AI / Automation | The Accelerationist |
 | **VECTOR** | Product | The Navigator |
-| **ECHO** | Account/CS | The Translator |
+| **ECHO** | Account / CS | The Translator |
+
+Four operational teams round out the studio without callsigns: **Leadership** (strategy, finance, risk, compliance), **Operations** (analytics, infrastructure, support ops), **Research** (market and data intelligence), and **Core** (cross-cutting capabilities).
+
+Starting at 130 agents across 10 teams. Built to scale to hundreds.
 
 ---
 
-## First Mission: Agent Directory
+## The Directory
 
-An interactive web experience — part yearbook, part mission control roster — where you can explore each agent's personality, skills, relationships, and use cases.
+Three layers, all statically generated (144 routes prerendered):
 
-**Status:** In development
+- `/` — searchable roster of all 130 agents, filterable by team
+- `/team/[slug]` — per-team page with mission, collaboration patterns, best practices, and the full team roster
+- `/agent/[team]/[slug]` — full agent profile with capabilities, tools, and team context
+
+Team pages are built from authored briefs in `src/content/teams/*.md` — the canonical record of how each team actually operates.
+
+---
+
+## Quickstart
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
 ## Stack
 
-- Dark-mode-first
-- Mission control / coordinate system aesthetic
-- Brand color: `#E8FF47` (chartreuse)
+- **Next.js 16** (App Router, SSG)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Framer Motion**
+- **marked** — markdown rendering for team briefs
+- Light + dark, both first-class. Brand color: `#E8FF47`.
+
+---
+
+## Project Structure
+
+```text
+src/
+  app/               Next.js routes
+  data/
+    agents.ts        Auto-generated registry of 130 agents
+    teams.ts         Team metadata — callsign, color, archetype, tagline
+  content/
+    teams/*.md       Authored team briefs
+  lib/
+    markdown.ts      Markdown rendering helper
+```
 
 ---
 
