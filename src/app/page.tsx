@@ -46,7 +46,7 @@ export default function Home() {
               A2Y Axis
             </h1>
             <p className="text-lg mb-1" style={{ color: 'var(--axis-text-primary)' }}>
-              {agents.length} agents shipping the world&rsquo;s most advanced AI pet translator.
+              {agents.length}&nbsp;agents shipping the world&rsquo;s most advanced AI pet translator.
             </p>
             <p className="text-sm" style={{ color: 'var(--axis-text-tertiary)' }}>
               If it actually worked.
