@@ -10,7 +10,9 @@
 
 ## What We're Building
 
-An interactive agent directory / yearbook **app** for the A2Y Axis AI agent studio. **Starting at 130 agents across 10 teams** — the architecture is built to index and organize hundreds of agents over time. Six teams carry callsigns and set the studio's tone; the other four are operational.
+An interactive **educational app** that teaches real prosumers (AI-semi-pro PMs, self-taught techies) how to work with 130 specialist Claude agents through real-world use cases — presented as a directory / yearbook for the A2Y Axis AI agent studio. **Starting at 130 agents across 10 teams** — the architecture is built to index and organize hundreds of agents over time. Six teams carry callsigns and set the studio's tone; the other four are operational.
+
+**Purpose vs. flavor:** the substance is teaching real humans practical workflows. The fictional Series B startup framing, the Wonka × Office tone (7/10 whimsy), and the running AI-pet-translator gag are tonal flavoring — not the reason the app exists.
 
 **Framing:** experience-first, not content-first. Visual storytelling primitive is an infinite tapestry mindmap — agents as nodes, teams as clusters, collaboration patterns as edges.
 
@@ -39,8 +41,9 @@ Four operational teams round out the studio without callsigns: **Leadership**, *
 
 ## Brand
 
-**Hero color:** `#E8FF47` (chartreuse) — HUD crosshair, radar return, coordinate lock
-**Mode:** Dual-vibe — light and dark are both first-class. Default TBD.
+**Aesthetic anchor:** Wonka × Office, 7/10 whimsy. (Overrides the prior "mission control / orbital mechanics / HUD" framing — course-corrected 2026-05-07.)
+**Hero color:** `#E8FF47` (chartreuse) — reserved for "you completed / unlocked / earned" moments per the gamification chassis; don't waste it on generic hover/accents.
+**Mode:** Dual-vibe — light and dark are both first-class. **Default: dark** (locked 2026-05-08); light is first-class secondary.
 **Visual primitive:** Hex sigils — abstract, gradient-flooded, 3D-iridescent. *Not* humanoid characters. Reference: Datalands' Microsoft Praise.
 **Color application:** Religious — every team color must do typographic, background, interaction-state, AND reward work, not just decorative borders.
 
@@ -95,7 +98,7 @@ Team pages are built from authored briefs in `src/content/teams/*.md`.
 
 P0 → P1 → P2. Don't move past P0 until visual storytelling language is finalized.
 
-1. **Homepage (P0)** — orbital/mindmap hero, 130-agent searchable roster
+1. **Homepage (P0)** — tapestry/mindmap hero, 130-agent searchable roster
 2. **Team page (P1)** — team archive
 3. **Agent detail (P2)** — individual agent profile
 
@@ -132,15 +135,14 @@ Locked 2026-05-07. Fictional company name, product name, and tone-bible voice st
 
 Tracked in detail in [`docs/sessions/session-002-design-direction-debrief.md`](docs/sessions/session-002-design-direction-debrief.md) and the live priority queue in user memory. Summary:
 
-1. **Fictional company name + product name + tone bible** — required to ship the tier system + recurring case study as user-facing language
-2. **Default mode** — light or dark
-3. **Central metaphor (storyline spine)** — debrief pending
-4. **Callsign task-force model** — proposed (callsigns as seats, not people); not formally locked
-5. **Light-mode color token set** — not yet specced
-6. **Team brief review** — 10 authored files at `src/content/teams/*.md` not yet reviewed
-7. **Playground feature** — feasibility eval pending
-8. **Typography (display + body/mono)** — not yet chosen
-9. **Manifesto copy** — not yet written
+1. **Central metaphor (storyline spine)** — debrief pending
+2. **Callsign task-force model** — proposed (callsigns as seats, not people); not formally locked
+3. **Hex sigil family design** — 10 teams, 3 tier-color anchors
+4. **Light-mode color token set** — not yet specced
+5. **Team brief review** — 10 authored files at `src/content/teams/*.md` not yet reviewed
+6. **Playground feature** — feasibility eval pending
+7. **Typography (display + body/mono)** — not yet chosen
+8. **Manifesto copy** — not yet written
 
 ---
 
@@ -176,5 +178,5 @@ src/
     teams.ts         Team page data loader
 docs/
   sessions/          Session debriefs (live source of truth for in-flux decisions)
-  brand-guidelines.md  Brand brief (NOTE: stale — predates session 002 direction shift)
+  brand-guidelines.md  Brand reference (v0.2 — reflects locked direction)
 ```
