@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* bm-design-system:start */
+@import "../styles/design-system.css";
+/* bm-design-system:end */
+
 :root {
   /* A2Y Axis Brand */
   --axis-brand: #E8FF47;
@@ -26,7 +30,14 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-* {
+/* Mode-aware so native form controls and scrollbars follow the theme toggle.
+   Was `* { color-scheme: dark }`, which pinned every element to dark and made
+   light mode render dark UA widgets. */
+:root {
+  color-scheme: light;
+}
+
+.dark {
   color-scheme: dark;
 }
 

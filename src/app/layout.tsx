@@ -25,8 +25,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // `dark` ships on the server render so dark is the default (locked
+      // 2026-05-08) with no light flash. The boot script below may remove it
+      // before paint if the user has stored a light preference.
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* bm-design-system:start */}
+        {/* Runs before paint, so a stored preference never flashes. Mirrors
+            DEFAULT_THEME in lib/theme.ts — keep the two in sync. */}
+        <script
+          id="theme-boot"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('bm-ds-theme');var t=(s==='light'||s==='dark'||s==='system')?s:'dark';var r=t==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t;var c=document.documentElement.classList;if(r==='dark')c.add('dark');else c.remove('dark');}catch(e){}})();`,
+          }}
+        />
+        {/* bm-design-system:end */}
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
